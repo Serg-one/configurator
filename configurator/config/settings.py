@@ -2,7 +2,7 @@ import dj_database_url
 import django_heroku
 import os
 from pathlib import Path
-
+django_heroku.settings(locals())
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-0y%^c3+j7@#ol%k5*skcsc4_o*n09pr11r=n^#11*g%7s87z1p'
@@ -117,7 +117,6 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-django_heroku.settings(locals())
 
 LOGGING = {
     'version': 1,
