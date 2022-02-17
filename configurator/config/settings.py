@@ -113,10 +113,10 @@ USE_TZ = True
 #     os.path.join(BASE_DIR, 'static'),
 # ]
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = "/images/"
+MEDIA_URL = "images/"
 MEDIA_ROOT = BASE_DIR / "static/images"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
