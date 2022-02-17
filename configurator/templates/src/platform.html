@@ -1,0 +1,26 @@
+{% extends 'src/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row">
+        {% for platform in platforms %}
+            <div class="col-lg-4">
+                <div class="card mb-3">
+                    <img src="{{platform.imageURL}}">
+                    <div class="card-body">
+                        <h6 class="card-subtitle">{{platform.name}}</h6>
+                        <hr>
+                        <a href="{% url 'configurator'%}?platform={{platform.id}}" class="btn btn-outline-primary btn-lg config-btn" role="button">
+                            <strong>Configure</strong>
+                        </a>
+                        <!-- <a class="btn btn-outline-info" href="#">View</a> -->
+                        <h4 style="float: right">
+                            <strong>${{platform.price}}</strong>
+                        </h4>
+                    </div>
+                </div>    
+            </div>
+        {% endfor %}        
+    </div>
+
+{% endblock %}

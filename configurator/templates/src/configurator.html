@@ -1,0 +1,161 @@
+{% extends 'src/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <form action="{% url 'checkout' %}">
+      <!-- {% csrf_token %} -->
+      <div class="card border-primary mb-3" style="max-width: 50rem;">
+          <div class="card-header"><strong>CHOOSE UNITS</strong></div>
+          <div class="card-body">
+            <strong class="card-title">CPU (max = {{ platform_settings.cpu_count }})</strong>
+              <select class="form-select conf-select" id="cpuSelect" name="cpuSelect">
+                {% for cpu in cpu_list %}
+                  <option>{{ cpu }} {{cpu.price}}</option>
+                {% endfor %}
+              </select>
+            <strong class="card-title">RAM (max = {{ platform_settings.ram_count }})</strong>
+              <select class="form-select conf-select" id="ramSelect" name="ramSelect">
+                {% for ram in ram_list %}
+                  <option>{{ ram }} {{ram.price}}</option>
+                {% endfor %}
+              </select>
+            <strong class="card-title">HDD/SDD (max = {{ platform_settings.hdd_count }})</strong>
+              <select class="form-select conf-select" id="hddSelect" name="hddSelect">
+                {% for hdd in hdd_list %}
+                  <option>{{ hdd }} {{hdd.price}}</option>
+                {% endfor %}
+              </select>
+            <strong class="card-title">PSU (max = {{ platform_settings.psu_count }})</strong>
+              <select class="form-select conf-select" id="psuSelect" name="psuSelect">
+                {% for psu in psu_list %}
+                  <option>{{ psu }} {{psu.price}}</option>
+                {% endfor %}
+              </select>
+              <a class="mt-2 btn btn-outline-light btn-back" href="{% url 'platform' %}">&#x2190; <strong>Back To Platforms</strong></a>
+              <input class="mt-2 btn btn-success" style="float:right; font-weight: bold;" type="submit" value="Confirm">                
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="card border-info mb-3" style="min-width: 30rem; max-width: 50rem;">
+        <div class="card-header"><strong>YOUR CART</strong></div>
+        <div class="card-body">
+          <strong class="card-title">Current choices:</strong>
+          <div class="table-responsive">
+            <table class="table table-hover table-image">
+                <thead>
+                    <tr>
+                      <th scope="col" class="col-2">Image</th>
+                      <th scope="col" class="col-2">Item</th>
+                      <th scope="col" class="col-2">Price</th>
+                      <th scope="col" class="col-2">Quantity</th>
+                      <th scope="col" class="col-2">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="align-bottom">
+                      <td>
+                        <img src="{{platform_settings.platform.imageURL}}" class="w-25">
+                      </td>
+                      <td>{{platform}}</td>
+                      <td>$ {{platform.price}}</td>
+                      <td>
+                        <div class="input-group" style="width:40%">
+                            <button data-product="{{platform.id}}" data-action="add" class="btn btn-sm btn-info" type="button" id="button-addon1"><i class="bi bi-dash" role="img"></i></button>
+                            <input type="text" class="form-control form-control-sm" placeholder="1" aria-label="1" aria-describedby="button-addon1" value="1">
+                            <button data-product="{{platform.id}}" data-action="remove" class="btn btn-sm btn-info" type="button" id="button-addon1"><i class="bi bi-plus" role="img"></i></button>
+                        </div>
+                      </td>
+                      <td><strong>$ {{platform.price}}</strong></td>
+                    </tr>
+                    {% for item in items %}
+                    <tr class="align-bottom">
+                      <td>
+                        <img src="{{item.product.imageURL}}" class="w-25">
+                      </td>
+                      <td>{{item.product.name}}</td>
+                      <td>${{item.product.price|floatformat:2}}</td>
+                      <td>
+                        <div class="input-group" style="width:40%">
+                            <button data-product="{{item.product.id}}" data-action="add" class="btn btn-sm btn-info" type="button" id="button-addon1"><i class="bi bi-dash" role="img"></i></button>
+                            <input type="text" class="form-control form-control-sm" placeholder="0" aria-label="0" aria-describedby="button-addon1" value="{{item.quantity}}">
+                            <button data-product="{{item.product.id}}" data-action="remove" class="btn btn-sm btn-info" type="button" id="button-addon1"><i class="bi bi-plus" role="img"></i></button>
+                        </div>
+                      </td>
+                      <td><strong>${{item.get_total}}</strong></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+<!-- <script>
+  const newRowVariable = document.createElement('tr') 
+  var selectors = document.getElementByClassName("conf-select")
+  for(i = 0; i < selectors.length; i++) {
+    selectors[i].addEventListener("change", function(){
+      $.ajax({
+        type: 'GET',
+        url: "update_current_config/",
+        data: {
+          "product": selector[i].val(),
+        },
+        dataType: 'json',
+        success: function(response){
+          var target = document.getElementsByClassName("table");
+          var rowCount = table.rows.length;
+          var cellCount = table.rows[0].cells.length; 
+          var row = table.insertRow(rowCount);
+          for(var i =0; i <= cellCount; i++){            
+            newRowVariable.innerHTML = `<td><img src="{{item.product.imageURL}}" class="w-25"></td>
+                      <td>${response.product[1]}</td>
+                      <td>${response.product[2]}</td>
+                      <td>
+                        <div class="input-group" style="width:40%">
+                            <button data-product="${response.product[0]}" data-action="add" class="btn btn-sm btn-info" type="button" id="button-addon1"><i class="bi bi-dash" role="img"></i></button>
+                            <input type="text" class="form-control form-control-sm" placeholder="0" aria-label="0" aria-describedby="button-addon1" value="{{item.quantity}}">
+                            <button data-product="${response.product[0]}" data-action="remove" class="btn btn-sm btn-info" type="button" id="button-addon1"><i class="bi bi-plus" role="img"></i></button>
+                        </div>
+                      </td>
+                      <td><strong>${response.product[2]}</strong></td>`
+                    
+          }
+        }
+      })
+    })
+  } -->
+
+<!-- //   function addRows(){ 
+// 	var table = document.getElementByClassName('table');
+// 	var rowCount = table.rows.length;
+// 	var cellCount = table.rows[0].cells.length; 
+// 	var row = table.insertRow(rowCount);
+// 	for(var i =0; i <= cellCount; i++){
+// 		var cell = 'cell'+i;
+// 		cell = row.insertCell(i);
+// 		var copycel = document.getElementById('col'+i).innerHTML;
+// 		cell.innerHTML=copycel;		
+// 	}
+// }
+
+// function deleteRows(){
+// 	var table = document.getElementByClassName('table');
+// 	var rowCount = table.rows.length;
+// 	if(rowCount > '2'){
+// 		var row = table.deleteRow(rowCount-1);
+// 		rowCount--;
+// 	}
+// 	else{
+// 		alert('There should be atleast one row');
+// 	}
+// } -->
+</script>
+{% endblock content %}
