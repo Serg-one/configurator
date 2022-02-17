@@ -113,10 +113,10 @@ USE_TZ = True
 #     os.path.join(BASE_DIR, 'static'),
 # ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
-MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_ROOT = BASE_DIR / "static/images"
+MEDIA_URL = "/images/"
 
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
