@@ -57,7 +57,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
