@@ -6,7 +6,7 @@
         {% for platform in platforms %}
             <div class="col-lg-4">
                 <div class="card mb-3">
-                    <img src="{{platform.imageURL}}">
+                    <img src="{% static '{{platform.imageURL}}' %}">
                     <div class="card-body">
                         <h6 class="card-subtitle">{{platform.name}}</h6>
                         <hr>
