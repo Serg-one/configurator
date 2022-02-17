@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import dj_database_url
+import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -158,3 +159,4 @@ LOGGING = {
         },
     }
 }
+django_heroku.settings(locals())
