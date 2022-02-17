@@ -6,7 +6,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-0y%^c3+j7@#ol%k5*skcsc4_o*n09pr11r=n^#11*g%7s87z1p'
-django_heroku.settings(locals())
+
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
@@ -57,7 +57,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
+django_heroku.settings(locals())
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
