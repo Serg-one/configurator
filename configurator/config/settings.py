@@ -120,7 +120,7 @@ MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+django_heroku.settings(locals())
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -159,4 +159,4 @@ LOGGING = {
         },
     }
 }
-django_heroku.settings(locals())
+
