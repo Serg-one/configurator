@@ -77,3 +77,13 @@ def update_current_config(request):
         # "product_name": product,
     }
     return JsonResponse(response_data)
+
+
+def login(request):
+    context = {}
+    return response(request, "src/login.html", context)
+
+
+def cart(request):
+    context = {}
+    return response(request, "src/cart", context)

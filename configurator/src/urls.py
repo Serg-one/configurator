@@ -6,4 +6,6 @@ urlpatterns = [
     path('configurator/', views.configurator, name="configurator"),
     path('checkout/', views.update_current_config, name="checkout"),
     path('update_current_config/', views.update_current_config, name="update_current_config"),
+    path('login/', views.login, name="login"),
+    path('cart/', views.cart, name="cart"),
 ]

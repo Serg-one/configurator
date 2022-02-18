@@ -1,0 +1,109 @@
+{% extends 'src/base.html' %}
+{% load static %}
+{% block content %}
+<form id="form">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-8 mb-2">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="row g-3">
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Name" aria-label="Name">
+                                <label for="floatingInput">Name</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="Email Address">
+                                <label for="floatingInput">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="shipping-info">
+                        <hr>
+                        <h5 class="card-title">Shipping Information:</h5>
+                        <hr>
+                            
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Address" aria-label="Adress">
+                                    <label for="floatingInput">Address</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="City" aria-label="City">
+                                    <label for="floatingInput">City</label>
+                                </div>
+                            </div>                
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="State" aria-label="State">
+                                    <label for="floatingInput">State</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="ZIP Code" aria-label="ZIP Code">
+                                    <label for="floatingInput">ZIP Code</label>
+                                </div>
+                            </div>                
+                        </div>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Continue</button>
+                    
+                    <br>
+                    <div class="d-none" id="payment-info">
+                        <small>Paypal Options</small>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div class="col-md-4 mb-2">
+            <div class="card">
+                <div class="card-body order-summary">
+                    <a  class="btn btn-outline-light btn-back-shopping" href="{% url 'platform' %}">&#x2190; Back to Platform</a>
+                    <hr>
+                    <h5 class="card-title">Order Summary</h5>
+                    <hr>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <!-- {% for item in items %}   -->
+                                <tr class="align-bottom">
+                                <td><small></small></td>
+                                <td><small>$</small></td>
+                                <td>
+                                    <div class="input-group" style="width:40%">
+                                        <small>x</small>
+                                    </div>
+                                </td>
+                                <td><small>$</small></td>
+                                </tr>
+                                {% endfor %}                                   
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr scope="row" class="align-bottom">
+                                <th><h5>Items: <strong></strong></h5></th>
+                                <th style="text-align: right"><h5>Total: <strong>$</strong></h5></th>                                    
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
